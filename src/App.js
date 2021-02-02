@@ -184,12 +184,6 @@ class App extends Component {
     this.setState({ search: e.target.value })
   }
 
-  /* 
-  
-  fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=12.9762&lon=77.6033&appid=${apiKey}`)
-    .then(resp => resp.json())
-    .then(data => console.log(data)) */
-
 
   render() {
 
