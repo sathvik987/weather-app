@@ -103,7 +103,7 @@ class App extends Component {
       .then(data => {
         let values = data.hourly.map(t => t.dt)
         let times = []
-        for (let i = 2; i < 26; i++) {
+        for (let i = 1; i < 25; i++) {
           let t = new Date(values[i] * 1000)
           var hours = t.getHours();
           var minutes = t.getMinutes();
@@ -114,7 +114,7 @@ class App extends Component {
 
         let temps = data.hourly.map(t => t.temp)
         let temp = []
-        for (let i = 2; i < 26; i++) {
+        for (let i = 1; i < 25; i++) {
           let t = Math.floor(temps[i] - 273.15)
           temp.push(t)
         }
@@ -150,7 +150,7 @@ class App extends Component {
                   console.log(data)
                   let values = data.hourly.map(t => t.dt)
                   let times = []
-                  for (let i = 2; i < 26; i++) {
+                  for (let i = 1; i < 25; i++) {
                     let t = new Date(values[i] * 1000)
                     var hours = t.getHours();
                     var minutes = t.getMinutes();
@@ -161,7 +161,7 @@ class App extends Component {
 
                   let temps = data.hourly.map(t => t.temp)
                   let temp = []
-                  for (let i = 2; i < 26; i++) {
+                  for (let i = 1; i < 25; i++) {
                     let t = Math.floor(temps[i] - 273.15)
                     temp.push(t)
                   }
