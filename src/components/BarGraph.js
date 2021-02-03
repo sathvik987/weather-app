@@ -14,7 +14,7 @@ class BarGraph extends React.Component {
         }
 
         return (
-            <div style={{ width: '40em', height: '20em' }}>
+            <div >
                 <Bar
                     data={data}
 
