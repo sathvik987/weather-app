@@ -3,8 +3,9 @@ import Weather from "./components/Weather"
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'weather-icons/css/weather-icons.css';
-import { Form, Col, Button, Row, Container } from 'react-bootstrap';
+import { Form, Col, Button, Row, Container, Image } from 'react-bootstrap';
 import BarGraph from './components/BarGraph'
+import Img from "./factory.svg"
 
 const apiKey = '8d44c5609ed1f902741d31e3b65a3959';
 
@@ -26,9 +27,13 @@ class App extends Component {
       humidity: undefined,
       wind: undefined,
       labels: undefined,
-      data: undefined
-
-
+      data: undefined,
+      aqi: undefined,
+      aqiDes: undefined,
+      Carbonmonoxide: undefined,
+      Nitrogenmonoxide: undefined,
+      Nitrogendioxide: undefined,
+      Ozone: undefined
     };
 
 
@@ -74,6 +79,31 @@ class App extends Component {
       this.setState({ display: "" })
       alert("Enable your browser location to check weather at your location")
     })
+  }
+
+  getAqi = () => {
+    fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=${apiKey}`)
+      .then(resp => resp.json())
+      .then(data => {
+        let aqi = data.list[0].main.aqi;
+        let des = ""
+        if (aqi === 1) {
+          des = "Good"
+        } else if (aqi === 2) {
+          des = "Fair"
+        } else if (aqi === 3) {
+          des = "Moderate"
+        } else if (aqi === 4) {
+          des = "Poor"
+        } else if (aqi === 5) {
+          des = "Very Poor"
+        }
+        this.setState({
+          aqi: aqi,
+          aqiDes: des, Carbonmonoxide: data.list[0].components.co,
+          Nitrogenmonoxide: data.list[0].components.no, Nitrogendioxide: data.list[0].components.no2, Ozone: data.list[0].components.o3
+        })
+      })
   }
 
   componentDidMount() {
@@ -122,6 +152,8 @@ class App extends Component {
         this.setState({ data: temp })
 
       })
+
+    this.getAqi()
   }
 
   onSearchClick = () => {
@@ -147,7 +179,6 @@ class App extends Component {
               fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=${apiKey}`)
                 .then(resp => resp.json())
                 .then(data => {
-                  console.log(data)
                   let values = data.hourly.map(t => t.dt)
                   let times = []
                   for (let i = 1; i < 25; i++) {
@@ -166,7 +197,7 @@ class App extends Component {
                     temp.push(t)
                   }
 
-                  this.setState({ data: temp })
+                  this.setState({ data: temp }, this.getAqi)
 
 
                 })
@@ -195,8 +226,7 @@ class App extends Component {
 
     return (
       <div>
-        <br />
-        <Form className="form">
+        <Form className="form" style={{ paddingTop: 5 }}>
           <Form.Row className="align-items-center">
             <Col xs="auto">
               <Form.Control
@@ -219,8 +249,6 @@ class App extends Component {
           </Form.Row>
         </Form>
         <br />
-        <br />
-
         <Container>
           <Row>
             <Col>{disp}</Col>
@@ -229,9 +257,21 @@ class App extends Component {
               <BarGraph data={this.state.data} labels={this.state.labels} />
             </Col>
           </Row>
+          {this.state.aqi ? (
+            <Row>
+              <Col style={{ textAlign: 'center' }}>
+                <Image src={Img} style={{ height: "8em" }} />
+                <div>Air quality index: {this.state.aqi} ( {this.state.aqiDes} ) &nbsp;&nbsp; Carbon monoxide: {this.state.Carbonmonoxide} μg/m3</div>
+                <div>Nitrogen monoxide: {this.state.Nitrogenmonoxide} μg/m3 &nbsp;&nbsp; Nitrogen dioxide: {this.state.Nitrogendioxide} μg/m3</div>
+                <div>Ozone: {this.state.Ozone} μg/m3</div>
+              </Col>
+            </Row>
+          ) : (
+              <div></div>
+            )}
         </Container>
 
-      </div>
+      </div >
     );
 
   }
