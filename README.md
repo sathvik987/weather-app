@@ -6,8 +6,10 @@
 
 - Details about current weather at your location on start up.
 - Hourly temperature forecast for next 24 hours.
+- Air quality index
 - A Search box to check weather at any city.
-- View current location’s weather .
+- View current location’s weather.
+
 
 Note - Add your openweathermap api key in App.js
 
