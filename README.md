@@ -5,7 +5,7 @@
 ### Features
 
 - View weather of your location on start up.
-- Hourly temperature forecast for next 24 hours.
+- Hourly temperature forecast for next 24 hours with bar graph.
 - Air quality index.
 - A Search box to check weather of any city.
 - A button to view current location’s weather.
