@@ -4,7 +4,7 @@
 
 ### Features
 
-- View weather at your location on start up.
+- View weather of your location on start up.
 - Hourly temperature forecast for next 24 hours.
 - Air quality index.
 - A Search box to check weather of any city.
