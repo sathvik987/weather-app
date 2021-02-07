@@ -1,6 +1,7 @@
 {
   "name": "weather-app",
   "version": "0.1.0",
+  "_comment": "for gh page add homepage: https://sathvik987.github.io/weather-app",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
