@@ -234,7 +234,7 @@ class App extends Component {
                 id="inlineFormInput"
                 placeholder="City"
                 onChange={this.onSearchChange}
-                onKeyPress={e => { if (e.key === "Enter") e.preventDefault(); }}
+                onKeyPress={e => { if (e.key === "Enter") { e.preventDefault(); this.onSearchClick(); } }}
               />
             </Col>
             <Col xs="auto">
